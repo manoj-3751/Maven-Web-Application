@@ -1,0 +1,28 @@
+node {
+    try {
+
+        stage('Build') {
+            sh 'mvn clean package'
+        }
+
+        stage('Deploy') {
+            echo "Deploying..."
+        }
+
+        slackSend(
+            channel: '#jenkinsbuildnotifications',
+            color: 'good',
+            message: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}"
+        )
+
+    } catch (Exception e) {
+
+        slackSend(
+            channel: '#jenkinsbuildnotifications',
+            color: 'danger',
+            message: "❌ FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}\nBuild URL: ${env.BUILD_URL}"
+        )
+
+        throw e
+    }
+}
