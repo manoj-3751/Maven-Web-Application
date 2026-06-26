@@ -1,0 +1,25 @@
+node {
+
+    stage('Checkout') {
+        echo "Checking out code..."
+    }
+
+    stage('Build') {
+        echo "Building application..."
+    }
+
+    stage('Test') {
+        echo "Running tests..."
+    }
+
+    stage('Deploy') {
+        echo "Deploying application..."
+    }
+
+    // Success Notification
+    slackSend(
+        channel: '#jenkinsbuildnotifications',
+        color: 'good',
+        message: "✅ SUCCESS: Job '${env.JOB_NAME}' Build #${env.BUILD_NUMBER} completed successfully.\nBuild URL: ${env.BUILD_URL}"
+    )
+}
