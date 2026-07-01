@@ -19,7 +19,7 @@ def call(String buildStatus = 'STARTED') {
 
     // Send Slack notification
     slackSend(
-        channel: 'jenkinsbuildnotifications'
+        channel: 'jenkinsbuildnotifications',
         color: colorCode,
         message: summary
     )
